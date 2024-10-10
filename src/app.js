@@ -20,3 +20,36 @@ Leaflet.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map); // add a tile layer to the map, the tiles are those images that make up the map
+
+const myLocations = [
+  {
+    name: 'Zuhause',
+    location: [50.813455, 7.943412],
+    description: 'Home, sweet home!',
+  },
+
+  {
+    name: 'Lorensers',
+    location: [50.477865, 7.797151],
+    description: 'Wonderful friends',
+  },
+
+  {
+    name: 'Vortex Surfer',
+    location: [50.898031, 8.029038],
+    description: 'Best music club in the world',
+  },
+];
+
+// Add markers to the map with a popup
+myLocations.forEach((location) => {
+  Leaflet.marker(location.location, { icon: markerIcon })
+    .bindPopup(location.description)
+    .addTo(map);
+});
+
+// Set the view to the bounds of all markers
+const bounds = Leaflet.latLngBounds(
+  myLocations.map((location) => location.location)
+);
+map.fitBounds(bounds);
